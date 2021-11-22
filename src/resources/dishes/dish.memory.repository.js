@@ -11,6 +11,10 @@ const createDish = async ({ id, categoryId, description, title, photo, isPublish
   return dish;
 };
 
+const getDishesById = async (id) => {
+  Dishes.find((dish) => dish.categoryId === id)
+};
+
 const deleteById = async (id) => {
   const DishPosition = Dishes.findIndex((dish) => dish.id === id);
 
@@ -37,6 +41,7 @@ const updateById = async ({ id, categoryId, description, title, photo, isPublish
 module.exports = {
   Dishes,
   getAll,
+  getDishesById,
   getById,
   createDish,
   deleteById,

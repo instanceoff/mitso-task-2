@@ -5,6 +5,10 @@ const getAll = async () => Categoryes;
 
 const getById = async (id) => Categoryes.find((category) => category.id === id);
 
+const getCategoryesById = async (id) => {
+  Categoryes.find((category) => category.menuId === id)
+};
+
 const createCategory = async ({ id, menuId, title, photo, isVisible }) => {
   const category = new Category({ id, menuId, title, photo, isVisible });
   Categoryes.push(category);
@@ -38,6 +42,7 @@ module.exports = {
   Categoryes,
   getAll,
   getById,
+  getCategoryesById,
   createCategory,
   deleteById,
   updateById,
