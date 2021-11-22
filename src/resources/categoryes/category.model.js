@@ -1,16 +1,17 @@
 const uuid = require('uuid');
 
 class Category {
-  constructor({ id = uuid(), menuId = 'PLACEHOLDER', title = 'No photo', photo = "sagsa", isPublish = true} = {}) {
+  constructor({ id = "id", menuId = 'menuId', title = 'title', photo = "photo", isVisible = true} = {}) {
     this.id = id;
+    this.menuId = menuId;
     this.title = title;
     this.photo = photo;
-    this.isPublish = isPublish;
+    this.isVisible = isVisible;
   }
 
-  static toResponse(menu) {
-    const { id, title, photo, isPublish } = menu;
-    return { id, title, photo, isPublish };
+  static toResponse(category) {
+    const { id, menuId, title, photo, isVisible } = category;
+    return { id, menuId, title, photo, isVisible };
   }
 }
 

@@ -1,7 +1,7 @@
 const uuid = require('uuid');
 
-class Menu {
-  constructor({ id = uuid(), categoryId = 'PLACEHOLDER', title = 'No photo', description = "buba", photo = "sagsa", isPublish = true, ingredients = {"buba", "boba"}, price = 10 } = {}) {
+class Dish {
+  constructor({ id = "id", categoryId = 'PLACEHOLDER', title = 'title', description = "description", photo = "photo", isPublish = true, ingredients = {"buba", "boba"}, price = 10 } = {}) {
     this.id = id;
     this.categoryId = categoryId;
     this.title = title;
@@ -12,10 +12,10 @@ class Menu {
     this.price = price;
   }
 
-  static toResponse(menu) {
-    const { id, title, photo, isPublish } = menu;
+  static toResponse(dish) {
+    const { id, categoryId, description, title, photo, isPublish, ingredients, price } = dish;
     return { id, title, photo, isPublish };
   }
 }
 
-module.exports = Menu;
+module.exports = Dish;

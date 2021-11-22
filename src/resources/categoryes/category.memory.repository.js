@@ -5,8 +5,8 @@ const getAll = async () => Categoryes;
 
 const getById = async (id) => Categoryes.find((category) => category.id === id);
 
-const createBoard = async ({ id, title, columns }) => {
-  const category = new Category({ id, title, columns });
+const createCategory = async ({ id, menuId, title, photo, isVisible }) => {
+  const category = new Category({ id, menuId, title, photo, isVisible });
   Categoryes.push(category);
   return category;
 };
@@ -22,25 +22,23 @@ const deleteById = async (id) => {
   return categoryDeletable;
 };
 
-const updateById = async ({ id, title, columns }) => {
+const updateById = async ({ id, menuId, title, photo, isVisible }) => {
   const categoryPosition = Categoryes.findIndex((category) => category.id === id);
 
   if (categoryPosition === -1) return null;
 
   const oldCategory = Categoryes[categoryPosition];
-  const newCategory = { ...oldCategory, title, columns };
+  const newCategory = { ...oldCategory, menuId, title, photo, isVisible };
 
   Categoryes.splice(categoryPosition, 1, newCategory);
   return newCategory;
 };
 
 module.exports = {
-  Boards,
+  Categoryes,
   getAll,
   getById,
-  createBoard,
+  createCategory,
   deleteById,
   updateById,
 };
-
-module.exports = { getAll };
