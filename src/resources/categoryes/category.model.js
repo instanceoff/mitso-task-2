@@ -1,7 +1,11 @@
-const uuid = require('uuid');
-
 class Category {
-  constructor({ id = "id", menuId = 'menuId', title = 'title', photo = "photo", isVisible = true} = {}) {
+  constructor({
+    id = 'id',
+    menuId = 'menuId',
+    title = 'title',
+    photo = 'photo',
+    isVisible = true,
+  } = {}) {
     this.id = id;
     this.menuId = menuId;
     this.title = title;

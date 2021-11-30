@@ -1,4 +1,5 @@
 const Menu = require('./menu.model');
+
 const Menus = [new Menu()];
 
 const getAll = async () => Menus;
@@ -12,7 +13,7 @@ const createMenu = async ({ id, title, columns }) => {
 };
 
 const deleteById = async (id) => {
-  const MenuPosition = Menus.findIndex((menu) => menu.id === id);
+  const menuPosition = Menus.findIndex((menu) => menu.id === id);
 
   if (menuPosition === -1) return null;
 

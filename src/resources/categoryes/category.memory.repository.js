@@ -1,4 +1,5 @@
 const Category = require('./category.model');
+
 const Categoryes = [new Category()];
 
 const getAll = async () => Categoryes;
@@ -6,7 +7,7 @@ const getAll = async () => Categoryes;
 const getById = async (id) => Categoryes.find((category) => category.id === id);
 
 const getCategoryesById = async (id) => {
-  Categoryes.find((category) => category.menuId === id)
+  Categoryes.find((category) => category.menuId === id);
 };
 
 const createCategory = async ({ id, menuId, title, photo, isVisible }) => {

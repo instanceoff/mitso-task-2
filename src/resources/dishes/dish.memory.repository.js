@@ -1,22 +1,41 @@
 const Dish = require('./dish.model');
+
 const Dishes = [new Dish()];
 
 const getAll = async () => Dishes;
 
 const getById = async (id) => Dishes.find((dish) => dish.id === id);
 
-const createDish = async ({ id, categoryId, description, title, photo, isPublish, ingredients, price }) => {
-  const dish = new Dish({ id, categoryId, description, title, photo, isPublish, ingredients, price });
+const createDish = async ({
+  id,
+  categoryId,
+  description,
+  title,
+  photo,
+  isPublish,
+  ingredients,
+  price,
+}) => {
+  const dish = new Dish({
+    id,
+    categoryId,
+    description,
+    title,
+    photo,
+    isPublish,
+    ingredients,
+    price,
+  });
   Dishes.push(dish);
   return dish;
 };
 
 const getDishesById = async (id) => {
-  Dishes.find((dish) => dish.categoryId === id)
+  Dishes.find((dish) => dish.categoryId === id);
 };
 
 const deleteById = async (id) => {
-  const DishPosition = Dishes.findIndex((dish) => dish.id === id);
+  const dishPosition = Dishes.findIndex((dish) => dish.id === id);
 
   if (dishPosition === -1) return null;
 
@@ -26,13 +45,31 @@ const deleteById = async (id) => {
   return dishDeletable;
 };
 
-const updateById = async ({ id, categoryId, description, title, photo, isPublish, ingredients, price }) => {
+const updateById = async ({
+  id,
+  categoryId,
+  description,
+  title,
+  photo,
+  isPublish,
+  ingredients,
+  price,
+}) => {
   const dishPosition = Dishes.findIndex((dish) => dish.id === id);
 
   if (dishPosition === -1) return null;
 
   const oldDish = Dishes[dishPosition];
-  const newDish = { ...oldDish, categoryId, description, title, photo, isPublish, ingredients, price };
+  const newDish = {
+    ...oldDish,
+    categoryId,
+    description,
+    title,
+    photo,
+    isPublish,
+    ingredients,
+    price,
+  };
 
   Dishes.splice(dishPosition, 1, newDish);
   return newDish;
