@@ -1,40 +1,42 @@
-const Dish = require('./dish.model');
+// const Dish = require('./dish.model');
 
-const Dishes = [new Dish()];
+import * as Dish from './dish.model';
+
+const Dishes = [new Dish.Dish()];
 
 const getAll = async () => Dishes;
 
-const getById = async (id) => Dishes.find((dish) => dish.id === id);
+const getById = async (id: String) => Dishes.find((dish) => dish.id === id);
 
-const createDish = async ({
-  id,
-  categoryId,
-  description,
-  title,
-  photo,
-  isPublish,
-  ingredients,
-  price,
-}) => {
-  const dish = new Dish({
+const createDish = async (
+  id: String,
+  categoryId: String,
+  title: String,
+  description: String,
+  photo: String,
+  isPublish: Boolean,
+  ingredients: String[],
+  price: Number,
+) => {
+  const dish = new Dish.Dish(
     id,
     categoryId,
-    description,
     title,
+    description,
     photo,
     isPublish,
     ingredients,
     price,
-  });
+  );
   Dishes.push(dish);
   return dish;
 };
 
-const getDishesById = async (id) => {
+const getDishesById = async (id: String) => {
   Dishes.find((dish) => dish.categoryId === id);
 };
 
-const deleteById = async (id) => {
+const deleteById = async (id: String) => {
   const dishPosition = Dishes.findIndex((dish) => dish.id === id);
 
   if (dishPosition === -1) return null;
@@ -75,12 +77,4 @@ const updateById = async ({
   return newDish;
 };
 
-module.exports = {
-  Dishes,
-  getAll,
-  getDishesById,
-  getById,
-  createDish,
-  deleteById,
-  updateById,
-};
+export { Dishes, getAll, getDishesById, getById, createDish, deleteById, updateById };
