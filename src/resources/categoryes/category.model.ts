@@ -19,7 +19,7 @@ export class Category {
     this.isVisible = isVisible;
   }
 
-  static toResponse(category) {
+  static toResponse(category: Category) {
     const { id, menuId, title, photo, isVisible } = category;
     return { id, menuId, title, photo, isVisible };
   }

@@ -12,6 +12,7 @@ import { Router as router } from 'express';
 
 import { StatusCodes } from 'http-status-codes';
 import { Category } from './category.model';
+import { Dish } from '../dishes/dish.model';
 import * as categoryesService from './category.service';
 
 const catchErrors = require('../../common/catchErrors');
@@ -34,7 +35,7 @@ router()
     catchErrors(async (req, res) => {
       const { id } = req.params;
 
-      const category = await categoryesService.getById(id);
+      const category: Category = await categoryesService.getById(id);
 
       if (category) {
         res.json(Category.toResponse(category));
@@ -53,14 +54,14 @@ router()
     catchErrors(async (req, res) => {
       const { id } = req.params;
 
-      const category = await categoryesService.getDishesById(id);
+      const dishes: Dish = await categoryesService.getDishesById(id);
 
-      if (category) {
-        res.json(Category.toResponse(category));
+      if (dishes) {
+        res.json(Dish.toResponse(dishes));
       } else {
         res
           .status(StatusCodes.NOT_FOUND)
-          .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
+          .json({ code: 'DISHES_NOT_FOUND', msg: 'Dishes not found' });
       }
     }),
   );
@@ -72,7 +73,13 @@ router()
       const { id } = req.params;
       const { title, menuId, photo, isVisible } = req.body;
 
-      const category = await categoryesService.createCategory(id, title, menuId, photo, isVisible);
+      const category: Category = await categoryesService.createCategory(
+        id,
+        title,
+        menuId,
+        photo,
+        isVisible,
+      );
 
       if (category) {
         res.status(StatusCodes.CREATED).json(Category.toResponse(category));
@@ -89,7 +96,13 @@ router()
       const { id } = req.params;
       const { title, menuId, photo, isVisible } = req.body;
 
-      const category = await categoryesService.updateById(id, title, menuId, photo, isVisible);
+      const category: Category = await categoryesService.updateById(
+        id,
+        title,
+        menuId,
+        photo,
+        isVisible,
+      );
 
       if (category) {
         res.status(StatusCodes.OK).json(Category.toResponse(category));

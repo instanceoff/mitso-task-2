@@ -1,8 +1,9 @@
-const categoryRepo = require('./category.memory.repository');
-const dishRepo = require('../dishes/dish.memory.repository');
+import * as categoryRepo from './category.memory.repository';
+import * as dishRepo from '../dishes/dish.memory.repository';
+import { Category } from './category.model';
 
 const getAll = () => categoryRepo.getAll();
-const getById = (id) => categoryRepo.getById(id);
+const getById = (id: String) => categoryRepo.getById(id);
 const createCategory = (
   id: String,
   menuId: String,
@@ -10,9 +11,9 @@ const createCategory = (
   photo: String,
   isVisible: Boolean,
 ) => categoryRepo.createCategory(id, menuId, title, photo, isVisible);
-const deleteById = (id) => categoryRepo.deleteById(id);
+const deleteById = (id: String) => categoryRepo.deleteById(id);
 const updateById = (id: String, menuId: String, title: String, photo: String, isVisible: Boolean) =>
   categoryRepo.updateById(id, menuId, title, photo, isVisible);
-const getDishesById = (id) => dishRepo.getDishesById(id);
+const getDishesById = (id: String) => dishRepo.getDishesById(id);
 
 export { getAll, getById, getDishesById, createCategory, deleteById, updateById };
