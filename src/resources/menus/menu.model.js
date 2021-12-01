@@ -1,5 +1,5 @@
 class Menu {
-  constructor({ id = 'id', title = 'title', photo = 'photo', isPublish = true } = {}) {
+  constructor({ id, title, photo, isPublish } = {}) {
     this.id = id;
     this.title = title;
     this.photo = photo;

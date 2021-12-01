@@ -50,8 +50,7 @@ router.route('/:id/categories').get(
 
 router.route('/').post(
   catchErrors(async (req, res) => {
-    const { id } = req.params;
-    const { title, photo, isPublish } = req.body;
+    const { id, title, photo, isPublish } = req.body;
 
     const menu = await menusService.createMenu({ id, title, photo, isPublish });
 

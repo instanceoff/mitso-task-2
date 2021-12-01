@@ -54,10 +54,9 @@ router.route('/:id/categories').get(
 
 router.route('/').post(
   catchErrors(async (req, res) => {
-    const { id } = req.params;
-    const { title, photo, isPublish } = req.body;
+    const { id, title, photo, isVisible } = req.body;
 
-    const category = await categoryesService.createCategory({ id, title, photo, isPublish });
+    const category = await categoryesService.createCategory({ id, title, photo, isVisible });
 
     if (category) {
       res.status(StatusCodes.CREATED).json(Сategory.toResponse(category));
@@ -70,9 +69,9 @@ router.route('/').post(
 router.route('/:id').put(
   catchErrors(async (req, res) => {
     const { id } = req.params;
-    const { title, photo, isPublish } = req.body;
+    const { title, photo, isVisible } = req.body;
 
-    const category = await categoryesService.updateById({ id, title, photo, isPublish });
+    const category = await categoryesService.updateById({ id, title, photo, isVisible });
 
     if (category) {
       res.status(StatusCodes.OK).json(Сategory.toResponse(category));

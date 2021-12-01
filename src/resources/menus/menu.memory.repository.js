@@ -6,8 +6,8 @@ const getAll = async () => Menus;
 
 const getById = async (id) => Menus.find((menu) => menu.id === id);
 
-const createMenu = async ({ id, title, columns }) => {
-  const menu = new Menu({ id, title, columns });
+const createMenu = async ({ id, title, photo, isPublish }) => {
+  const menu = new Menu({ id, title, photo, isPublish });
   Menus.push(menu);
   return menu;
 };

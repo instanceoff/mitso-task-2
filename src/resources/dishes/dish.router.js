@@ -35,8 +35,7 @@ router.route('/:id').get(
 
 router.route('/').post(
   catchErrors(async (req, res) => {
-    const { id } = req.params;
-    const { title, photo, isPublish } = req.body;
+    const { id, title, photo, isPublish } = req.body;
 
     const dish = await dishesService.createDish({ id, title, photo, isPublish });
 
