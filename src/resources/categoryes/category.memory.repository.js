@@ -7,7 +7,11 @@ const getAll = async () => Categoryes;
 const getById = async (id) => Categoryes.find((category) => category.id === id);
 
 const getCategoryesById = async (id) => {
-  Categoryes.find((category) => category.menuId === id);
+  const categoryes = [];
+  Categoryes.forEach((category) => {
+    if (category.menuId === id) categoryes.push(category);
+  });
+  return categoryes;
 };
 
 const createCategory = async ({ id, menuId, title, photo, isVisible }) => {

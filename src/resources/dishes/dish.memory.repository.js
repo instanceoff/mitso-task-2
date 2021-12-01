@@ -31,7 +31,11 @@ const createDish = async ({
 };
 
 const getDishesById = async (id) => {
-  Dishes.find((dish) => dish.categoryId === id);
+  const dishes = [];
+  Dishes.forEach((dish) => {
+    if (dish.categoryId === id) dishes.push(dish);
+  });
+  return dishes;
 };
 
 const deleteById = async (id) => {
