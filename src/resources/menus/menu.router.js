@@ -38,10 +38,10 @@ router.route('/:id/categories').get(
   catchErrors(async (req, res) => {
     const { id } = req.params;
 
-    const menu = await menusService.getCategoryesById(id);
+    const menus = await menusService.getCategoryesById(id);
 
-    if (menu) {
-      res.json(Menu.toResponse(menu));
+    if (menus.length > 0) {
+      res.json(menus.map(Menu.toResponse));
     } else {
       res.status(StatusCodes.NOT_FOUND).json({ code: 'MENU_NOT_FOUND', msg: 'Menu not found' });
     }

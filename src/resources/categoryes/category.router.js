@@ -40,10 +40,10 @@ router.route('/:id/categories').get(
   catchErrors(async (req, res) => {
     const { id } = req.params;
 
-    const category = await categoryesService.getDishesById(id);
+    const categoryes = await categoryesService.getDishesById(id);
 
-    if (category) {
-      res.json(Сategory.toResponse(category));
+    if (categoryes.length > 0) {
+      res.json(categoryes.map(Сategory.toResponse));
     } else {
       res
         .status(StatusCodes.NOT_FOUND)

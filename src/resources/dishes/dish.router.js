@@ -18,7 +18,7 @@ router.route('/').get(
   }),
 );
 
-// Вернет блюда с заданным id
+// Вернет блюдо с заданным id
 router.route('/:id').get(
   catchErrors(async (req, res) => {
     const { id } = req.params;
