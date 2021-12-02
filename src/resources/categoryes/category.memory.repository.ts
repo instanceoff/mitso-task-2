@@ -6,9 +6,9 @@ const Categoryes = [new Category()];
 
 const getAll = async () => Categoryes;
 
-const getById = async (id: String) => Categoryes.find((category) => category.id === id);
+const getById = async (id: string | undefined) => Categoryes.find((category) => category.id === id);
 
-const getCategoryesById = async (id: String) => {
+const getCategoryesById = async (id: string | undefined) => {
   Categoryes.find((category) => category.menuId === id);
 };
 

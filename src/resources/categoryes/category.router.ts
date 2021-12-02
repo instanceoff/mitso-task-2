@@ -8,7 +8,7 @@
 
 // const categoryesService = require('./category.service');
 
-import { Router as router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import { StatusCodes } from 'http-status-codes';
 import { Category } from './category.model';
@@ -21,7 +21,7 @@ const catchErrors = require('../../common/catchErrors');
 router()
   .route('/')
   .get(
-    catchErrors(async (req, res) => {
+    catchErrors(async (req: Request, res: Response) => {
       const categoryes = await categoryesService.getAll();
 
       res.json(categoryes.map(Category.toResponse));
@@ -32,10 +32,10 @@ router()
 router()
   .route('/:id')
   .get(
-    catchErrors(async (req, res) => {
+    catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
 
-      const category: Category = await categoryesService.getById(id);
+      const category = await categoryesService.getById(id);
 
       if (category) {
         res.json(Category.toResponse(category));
@@ -51,10 +51,10 @@ router()
 router()
   .route('/:id/categories')
   .get(
-    catchErrors(async (req, res) => {
+    catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
 
-      const dishes: Dish = await categoryesService.getDishesById(id);
+      const dishes = await categoryesService.getDishesById(id);
 
       if (dishes) {
         res.json(Dish.toResponse(dishes));
@@ -69,9 +69,8 @@ router()
 router()
   .route('/')
   .post(
-    catchErrors(async (req, res) => {
-      const { id } = req.params;
-      const { title, menuId, photo, isVisible } = req.body;
+    catchErrors(async (req: Request, res: Response) => {
+      const { id, title, menuId, photo, isVisible } = req.body;
 
       const category: Category = await categoryesService.createCategory(
         id,
@@ -92,7 +91,7 @@ router()
 router()
   .route('/:id')
   .put(
-    catchErrors(async (req, res) => {
+    catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
       const { title, menuId, photo, isVisible } = req.body;
 
@@ -117,7 +116,7 @@ router()
 router()
   .route('/:id')
   .delete(
-    catchErrors(async (req, res) => {
+    catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
 
       const category = await categoryesService.deleteById(id);

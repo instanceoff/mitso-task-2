@@ -3,7 +3,7 @@ import * as dishRepo from '../dishes/dish.memory.repository';
 import { Category } from './category.model';
 
 const getAll = () => categoryRepo.getAll();
-const getById = (id: String) => categoryRepo.getById(id);
+const getById = (id: string | undefined) => categoryRepo.getById(id);
 const createCategory = (
   id: String,
   menuId: String,
