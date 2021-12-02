@@ -15,6 +15,8 @@ import { Category } from './category.model';
 import { Dish } from '../dishes/dish.model';
 import * as categoryesService from './category.service';
 
+import { TCategory, TCategoryModel } from './category.types';
+
 const catchErrors = require('../../common/catchErrors');
 
 // Вренет все меню в системе
@@ -35,7 +37,7 @@ router()
     catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
 
-      const category = await categoryesService.getById(id);
+      const category = await categoryesService.getById(id || '');
 
       if (category) {
         res.json(Category.toResponse(category));
@@ -54,7 +56,7 @@ router()
     catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
 
-      const dishes = await categoryesService.getDishesById(id);
+      const dishes = await categoryesService.getDishesById(id || '');
 
       if (dishes) {
         res.json(Dish.toResponse(dishes));
@@ -72,13 +74,13 @@ router()
     catchErrors(async (req: Request, res: Response) => {
       const { id, title, menuId, photo, isVisible } = req.body;
 
-      const category: Category = await categoryesService.createCategory(
+      const category: Category = await categoryesService.createCategory({
         id,
         title,
         menuId,
         photo,
         isVisible,
-      );
+      });
 
       if (category) {
         res.status(StatusCodes.CREATED).json(Category.toResponse(category));
@@ -95,13 +97,13 @@ router()
       const { id } = req.params;
       const { title, menuId, photo, isVisible } = req.body;
 
-      const category: Category = await categoryesService.updateById(
-        id,
+      const category = await categoryesService.updateById({
+        id: id || '',
         title,
         menuId,
         photo,
         isVisible,
-      );
+      });
 
       if (category) {
         res.status(StatusCodes.OK).json(Category.toResponse(category));
@@ -119,7 +121,7 @@ router()
     catchErrors(async (req: Request, res: Response) => {
       const { id } = req.params;
 
-      const category = await categoryesService.deleteById(id);
+      const category = await categoryesService.deleteById(id || '');
 
       if (category) {
         res

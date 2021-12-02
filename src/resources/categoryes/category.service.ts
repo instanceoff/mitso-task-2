@@ -1,19 +1,15 @@
 import * as categoryRepo from './category.memory.repository';
 import * as dishRepo from '../dishes/dish.memory.repository';
 import { Category } from './category.model';
+import { TCategory, TCategoryModel } from './category.types';
 
 const getAll = () => categoryRepo.getAll();
-const getById = (id: string | undefined) => categoryRepo.getById(id);
-const createCategory = (
-  id: String,
-  menuId: String,
-  title: String,
-  photo: String,
-  isVisible: Boolean,
-) => categoryRepo.createCategory(id, menuId, title, photo, isVisible);
-const deleteById = (id: String) => categoryRepo.deleteById(id);
-const updateById = (id: String, menuId: String, title: String, photo: String, isVisible: Boolean) =>
-  categoryRepo.updateById(id, menuId, title, photo, isVisible);
-const getDishesById = (id: String) => dishRepo.getDishesById(id);
+const getById = (id: string) => categoryRepo.getById(id);
+const createCategory = ({ id, menuId, title, photo, isVisible }: TCategory) =>
+  categoryRepo.createCategory({ id, menuId, title, photo, isVisible });
+const deleteById = (id: string) => categoryRepo.deleteById(id);
+const updateById = ({ id, menuId, title, photo, isVisible }: TCategory) =>
+  categoryRepo.updateById({ id, menuId, title, photo, isVisible });
+const getDishesById = (id: string) => dishRepo.getDishesById(id);
 
 export { getAll, getById, getDishesById, createCategory, deleteById, updateById };

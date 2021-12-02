@@ -1,17 +1,19 @@
+import { TCategoryPartial, TCategory, TCategoryModel } from './category.types';
+
 export class Category {
-  id: String;
-  menuId: String;
-  title: String;
-  photo: String;
+  id: string;
+  menuId: string;
+  title: string;
+  photo: string;
   isVisible: Boolean;
 
-  constructor(
-    id: String = 'id',
-    menuId: String = 'menuId',
-    title: String = 'title',
-    photo: String = 'photo',
-    isVisible: Boolean = true,
-  ) {
+  constructor({
+    id = 'id',
+    menuId = 'menuId',
+    title = 'title',
+    photo = 'photo',
+    isVisible = true,
+  }: TCategoryPartial = {}) {
     this.id = id;
     this.menuId = menuId;
     this.title = title;
@@ -20,8 +22,9 @@ export class Category {
   }
 
   static toResponse(category: Category) {
-    const { id, menuId, title, photo, isVisible } = category;
-    return { id, menuId, title, photo, isVisible };
+    // const { id, menuId, title, photo, isVisible } = category;
+    // return { id, menuId, title, photo, isVisible };
+    return { ...category };
   }
 }
 
