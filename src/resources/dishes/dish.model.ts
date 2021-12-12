@@ -1,11 +1,18 @@
 export class Dish {
   id: String;
+
   categoryId: String;
+
   title: String;
+
   description: String;
+
   photo: String;
+
   isPublish: Boolean;
+
   ingredients: String[];
+
   price: Number;
 
   constructor(
@@ -28,7 +35,7 @@ export class Dish {
     this.price = price;
   }
 
-  static toResponse(dish) {
+  static toResponse(dish: Dish) {
     const { id, categoryId, description, title, photo, isPublish, ingredients, price } = dish;
     return { id, categoryId, description, title, photo, isPublish, ingredients, price };
   }

@@ -1,7 +1,7 @@
 import * as categoryRepo from './category.memory.repository';
 import * as dishRepo from '../dishes/dish.memory.repository';
-import { Category } from './category.model';
-import { TCategory, TCategoryModel } from './category.types';
+// import { Category } from './category.model';
+import { TCategory } from './category.types';
 
 const getAll = () => categoryRepo.getAll();
 const getById = (id: string) => categoryRepo.getById(id);

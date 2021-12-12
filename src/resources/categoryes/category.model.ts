@@ -1,10 +1,16 @@
-import { TCategoryPartial, TCategory, TCategoryModel } from './category.types';
+import { TCategoryPartial } from './category.types';
+
+//  TCategory, TCategoryModel
 
 export class Category {
   id: string;
+
   menuId: string;
+
   title: string;
+
   photo: string;
+
   isVisible: Boolean;
 
   constructor({

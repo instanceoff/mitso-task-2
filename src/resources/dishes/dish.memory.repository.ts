@@ -1,33 +1,24 @@
 // const Dish = require('./dish.model');
+import { TDish } from './dish.types';
+import { Dish } from './dish.model';
 
-import * as Dish from './dish.model';
-
-const Dishes = [new Dish.Dish()];
+const Dishes = [new Dish()];
 
 const getAll = async () => Dishes;
 
 const getById = async (id: String) => Dishes.find((dish) => dish.id === id);
 
-const createDish = async (
-  id: String,
-  categoryId: String,
-  title: String,
-  description: String,
-  photo: String,
-  isPublish: Boolean,
-  ingredients: String[],
-  price: Number,
-) => {
-  const dish = new Dish.Dish(
-    id,
-    categoryId,
-    title,
-    description,
-    photo,
-    isPublish,
-    ingredients,
-    price,
-  );
+const createDish = async ({
+  id,
+  categoryId,
+  title,
+  description,
+  photo,
+  isPublish,
+  ingredients,
+  price,
+}: TDish) => {
+  const dish = new Dish(id, categoryId, title, description, photo, isPublish, ingredients, price);
   Dishes.push(dish);
   return dish;
 };
@@ -53,13 +44,13 @@ const deleteById = async (id: String) => {
 const updateById = async ({
   id,
   categoryId,
-  description,
   title,
+  description,
   photo,
   isPublish,
   ingredients,
   price,
-}) => {
+}: TDish) => {
   const dishPosition = Dishes.findIndex((dish) => dish.id === id);
 
   if (dishPosition === -1) return null;
@@ -67,6 +58,7 @@ const updateById = async ({
   const oldDish = Dishes[dishPosition];
   const newDish = {
     ...oldDish,
+    id,
     categoryId,
     description,
     title,

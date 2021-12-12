@@ -1,5 +1,5 @@
 // const Category = require('./category.model');
-import { TCategory, TCategoryModel } from './category.types';
+import { TCategory } from './category.types';
 import { Category } from './category.model';
 
 const Categoryes = [new Category()];

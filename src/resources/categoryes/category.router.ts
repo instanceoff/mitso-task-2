@@ -15,15 +15,15 @@ import { Category } from './category.model';
 import { Dish } from '../dishes/dish.model';
 import * as categoryesService from './category.service';
 
-import { TCategory, TCategoryModel } from './category.types';
+// import { TCategory, TCategoryModel } from './category.types';
 
-const catchErrors = require('../../common/catchErrors');
+import catchErrors from '../../common/catchErrors';
 
 // Вренет все меню в системе
-router()
+Router()
   .route('/')
   .get(
-    catchErrors(async (req: Request, res: Response) => {
+    catchErrors(async (res: Response) => {
       const categoryes = await categoryesService.getAll();
 
       res.json(categoryes.map(Category.toResponse));
@@ -31,7 +31,7 @@ router()
   );
 
 // Вернет меню с заданным id
-router()
+Router()
   .route('/:id')
   .get(
     catchErrors(async (req: Request, res: Response) => {
@@ -50,7 +50,7 @@ router()
   );
 
 // Вернет все блюда связанные с категорией по id
-router()
+Router()
   .route('/:id/categories')
   .get(
     catchErrors(async (req: Request, res: Response) => {
@@ -68,7 +68,7 @@ router()
     }),
   );
 
-router()
+Router()
   .route('/')
   .post(
     catchErrors(async (req: Request, res: Response) => {
@@ -90,7 +90,7 @@ router()
     }),
   );
 
-router()
+Router()
   .route('/:id')
   .put(
     catchErrors(async (req: Request, res: Response) => {
@@ -115,7 +115,7 @@ router()
     }),
   );
 
-router()
+Router()
   .route('/:id')
   .delete(
     catchErrors(async (req: Request, res: Response) => {
@@ -135,4 +135,4 @@ router()
     }),
   );
 
-module.exports = router;
+export default Router;
