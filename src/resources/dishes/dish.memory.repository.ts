@@ -6,7 +6,7 @@ const Dishes = [new Dish()];
 
 const getAll = async () => Dishes;
 
-const getById = async (id: String) => Dishes.find((dish) => dish.id === id);
+const getById = async (id: string) => Dishes.find((dish) => dish.id === id);
 
 const createDish = async ({
   id,

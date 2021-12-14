@@ -9,7 +9,11 @@ const getAll = async () => Categoryes;
 const getById = async (id: string) => Categoryes.find((category) => category.id === id);
 
 const getCategoryesById = async (id: string | undefined) => {
-  Categoryes.find((category) => category.menuId === id);
+  // Categoryes.find((category) => category.menuId === id);
+  const categoryPosition = Categoryes.findIndex((category) => category.menuId === id);
+  if (categoryPosition === -1) return null;
+  const dishes = Categoryes[categoryPosition];
+  return dishes;
 };
 
 const createCategory = async ({ id, menuId, title, photo, isVisible }: TCategory) => {

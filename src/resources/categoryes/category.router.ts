@@ -19,120 +19,108 @@ import * as categoryesService from './category.service';
 
 import catchErrors from '../../common/catchErrors';
 
-// Вренет все меню в системе
-Router()
-  .route('/')
-  .get(
-    catchErrors(async (res: Response) => {
-      const categoryes = await categoryesService.getAll();
+const router = Router();
 
-      res.json(categoryes.map(Category.toResponse));
-    }),
-  );
+// Вренет все меню в системе
+router.route('/').get(
+  catchErrors(async (res: Response) => {
+    const categoryes = await categoryesService.getAll();
+
+    res.json(categoryes.map(Category.toResponse));
+  }),
+);
 
 // Вернет меню с заданным id
-Router()
-  .route('/:id')
-  .get(
-    catchErrors(async (req: Request, res: Response) => {
-      const { id } = req.params;
+router.route('/:id').get(
+  catchErrors(async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-      const category = await categoryesService.getById(id || '');
+    const category = await categoryesService.getById(id || '');
 
-      if (category) {
-        res.json(Category.toResponse(category));
-      } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
-      }
-    }),
-  );
+    if (category) {
+      res.json(Category.toResponse(category));
+    } else {
+      res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
+    }
+  }),
+);
 
 // Вернет все блюда связанные с категорией по id
-Router()
-  .route('/:id/categories')
-  .get(
-    catchErrors(async (req: Request, res: Response) => {
-      const { id } = req.params;
+router.route('/:id/categories').get(
+  catchErrors(async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-      const dishes = await categoryesService.getDishesById(id || '');
+    const dishes = await categoryesService.getDishesById(id || '');
 
-      if (dishes) {
-        res.json(Dish.toResponse(dishes));
-      } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .json({ code: 'DISHES_NOT_FOUND', msg: 'Dishes not found' });
-      }
-    }),
-  );
+    if (dishes) {
+      res.json(Dish.toResponse(dishes));
+    } else {
+      res.status(StatusCodes.NOT_FOUND).json({ code: 'DISHES_NOT_FOUND', msg: 'Dishes not found' });
+    }
+  }),
+);
 
-Router()
-  .route('/')
-  .post(
-    catchErrors(async (req: Request, res: Response) => {
-      const { id, title, menuId, photo, isVisible } = req.body;
+router.route('/').post(
+  catchErrors(async (req: Request, res: Response) => {
+    const { id, title, menuId, photo, isVisible } = req.body;
 
-      const category: Category = await categoryesService.createCategory({
-        id,
-        title,
-        menuId,
-        photo,
-        isVisible,
-      });
+    const category: Category = await categoryesService.createCategory({
+      id,
+      title,
+      menuId,
+      photo,
+      isVisible,
+    });
 
-      if (category) {
-        res.status(StatusCodes.CREATED).json(Category.toResponse(category));
-      } else {
-        res.status(StatusCodes.BAD_REQUEST).json({ code: 'BAD_REQUEST', msg: 'Bad request' });
-      }
-    }),
-  );
+    if (category) {
+      res.status(StatusCodes.CREATED).json(Category.toResponse(category));
+    } else {
+      res.status(StatusCodes.BAD_REQUEST).json({ code: 'BAD_REQUEST', msg: 'Bad request' });
+    }
+  }),
+);
 
-Router()
-  .route('/:id')
-  .put(
-    catchErrors(async (req: Request, res: Response) => {
-      const { id } = req.params;
-      const { title, menuId, photo, isVisible } = req.body;
+router.route('/:id').put(
+  catchErrors(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { title, menuId, photo, isVisible } = req.body;
 
-      const category = await categoryesService.updateById({
-        id: id || '',
-        title,
-        menuId,
-        photo,
-        isVisible,
-      });
+    const category = await categoryesService.updateById({
+      id: id || '',
+      title,
+      menuId,
+      photo,
+      isVisible,
+    });
 
-      if (category) {
-        res.status(StatusCodes.OK).json(Category.toResponse(category));
-      } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
-      }
-    }),
-  );
+    if (category) {
+      res.status(StatusCodes.OK).json(Category.toResponse(category));
+    } else {
+      res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
+    }
+  }),
+);
 
-Router()
-  .route('/:id')
-  .delete(
-    catchErrors(async (req: Request, res: Response) => {
-      const { id } = req.params;
+router.route('/:id').delete(
+  catchErrors(async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-      const category = await categoryesService.deleteById(id || '');
+    const category = await categoryesService.deleteById(id || '');
 
-      if (category) {
-        res
-          .status(StatusCodes.NO_CONTENT)
-          .json({ code: 'CATEGORY_DELETED', msg: 'The category has been deleted' });
-      } else {
-        res
-          .status(StatusCodes.NOT_FOUND)
-          .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
-      }
-    }),
-  );
+    if (category) {
+      res
+        .status(StatusCodes.NO_CONTENT)
+        .json({ code: 'CATEGORY_DELETED', msg: 'The category has been deleted' });
+    } else {
+      res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ code: 'CATEGORY_NOT_FOUND', msg: 'Category not found' });
+    }
+  }),
+);
 
-export default Router;
+export default router;

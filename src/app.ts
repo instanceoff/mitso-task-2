@@ -1,6 +1,6 @@
 import express from 'express';
-// import * as menuRouter from './resources/menus/menu.router';
-// import * as dishRouter from './resources/dishes/dish.router';
+import menuRouter from './resources/menus/menu.router';
+import dishRouter from './resources/dishes/dish.router';
 import categoryRouter from './resources/categoryes/category.router';
 
 const app = express();
@@ -15,10 +15,10 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-// app.use('/menus', menuRouter);
+app.use('/menus', menuRouter);
 
 app.use('/categoryes', categoryRouter);
 
-// app.use('/dishes', dishRouter);
+app.use('/dishes', dishRouter);
 
 export default app;

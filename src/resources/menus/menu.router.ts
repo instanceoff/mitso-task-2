@@ -1,17 +1,30 @@
-const router = require('express').Router();
-const { StatusCodes } = require('http-status-codes');
-const Menu = require('./menu.model');
-const menusService = require('./menu.service');
-
-// const router = require('express').Router({ mergeParams: true});
+// const router = require('express').Router();
+// const { StatusCodes } = require('http-status-codes');
 // const Menu = require('./menu.model');
-
 // const menusService = require('./menu.service');
-const catchErrors = require('../../common/catchErrors');
+
+// // const router = require('express').Router({ mergeParams: true});
+// // const Menu = require('./menu.model');
+
+// // const menusService = require('./menu.service');
+// const catchErrors = require('../../common/catchErrors');
+
+import { Router, Request, Response } from 'express';
+
+import { StatusCodes } from 'http-status-codes';
+import { Menu } from './menu.model';
+import { Category } from '../categoryes/category.model';
+import * as menusService from './menu.service';
+
+// import { TCategory, TCategoryModel } from './category.types';
+
+import catchErrors from '../../common/catchErrors';
+
+const router = Router();
 
 // Вренет все меню в системе
 router.route('/').get(
-  catchErrors(async (req, res) => {
+  catchErrors(async (_req: Request, res: Response) => {
     const menus = await menusService.getAll();
 
     res.json(menus.map(Menu.toResponse));
@@ -20,10 +33,10 @@ router.route('/').get(
 
 //  Вернет меню с заданным id
 router.route('/:id').get(
-  catchErrors(async (req, res) => {
+  catchErrors(async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const menu = await menusService.getById(id);
+    const menu = await menusService.getById(id || '');
 
     if (menu) {
       res.json(Menu.toResponse(menu));
@@ -35,13 +48,13 @@ router.route('/:id').get(
 
 // Вернет все категории связанные с меню по id
 router.route('/:id/categories').get(
-  catchErrors(async (req, res) => {
+  catchErrors(async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const menu = await menusService.getCategoryesById(id);
+    const categoryes = await menusService.getCategoryesById(id || '');
 
-    if (menu) {
-      res.json(Menu.toResponse(menu));
+    if (categoryes) {
+      res.json(Category.toResponse(categoryes));
     } else {
       res.status(StatusCodes.NOT_FOUND).json({ code: 'MENU_NOT_FOUND', msg: 'Menu not found' });
     }
@@ -49,11 +62,10 @@ router.route('/:id/categories').get(
 );
 
 router.route('/').post(
-  catchErrors(async (req, res) => {
-    const { id } = req.params;
-    const { title, photo, isPublish } = req.body;
+  catchErrors(async (req: Request, res: Response) => {
+    const { id, title, photo, isPublish } = req.body;
 
-    const menu = await menusService.createMenu({ id, title, photo, isPublish });
+    const menu = await menusService.createMenu({ id: id || '', title, photo, isPublish });
 
     if (menu) {
       res.status(StatusCodes.CREATED).json(Menu.toResponse(menu));
@@ -64,11 +76,11 @@ router.route('/').post(
 );
 
 router.route('/:id').put(
-  catchErrors(async (req, res) => {
+  catchErrors(async (req: Request, res: Response) => {
     const { id } = req.params;
     const { title, photo, isPublish } = req.body;
 
-    const menu = await menusService.updateById({ id, title, photo, isPublish });
+    const menu = await menusService.updateById({ id: id || '', title, photo, isPublish });
 
     if (menu) {
       res.status(StatusCodes.OK).json(Menu.toResponse(menu));
@@ -79,10 +91,10 @@ router.route('/:id').put(
 );
 
 router.route('/:id').delete(
-  catchErrors(async (req, res) => {
+  catchErrors(async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const menu = await menusService.deleteById(id);
+    const menu = await menusService.deleteById(id || '');
 
     if (menu) {
       res
@@ -94,4 +106,4 @@ router.route('/:id').delete(
   }),
 );
 
-module.exports = router;
+export default router;

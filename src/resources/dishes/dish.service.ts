@@ -27,4 +27,4 @@ const updateById = ({
 }: TDish) =>
   dishRepo.updateById({ id, categoryId, description, title, photo, isPublish, ingredients, price });
 
-module.exports = { getAll, getById, createDish, deleteById, updateById };
+export { getAll, getById, createDish, deleteById, updateById };
