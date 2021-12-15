@@ -23,7 +23,7 @@ const router = Router();
 
 // Вренет все меню в системе
 router.route('/').get(
-  catchErrors(async (res: Response) => {
+  catchErrors(async (_req: Request, res: Response) => {
     const categoryes = await categoryesService.getAll();
 
     res.json(categoryes.map(Category.toResponse));

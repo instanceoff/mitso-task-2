@@ -23,7 +23,7 @@ const router = Router();
 
 // Вренет все блюда в системе
 router.route('/').get(
-  catchErrors(async (res: Response) => {
+  catchErrors(async (_req: Request, res: Response) => {
     const dishes = await dishesService.getAll();
 
     res.json(dishes.map(Dish.toResponse));
