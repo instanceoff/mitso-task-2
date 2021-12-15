@@ -33,7 +33,8 @@ export const logging = async (req: Request, res: Response, next: NextFunction) =
       fs.createWriteStream(path.join(__dirname, '../../logs/logging.txt'), { flags: 'a' }),
     );
   } catch (error) {
-    process.stderr.write(error.message);
+    // process.stderr.write(error.message);
+    // return error;
     process.exit(1);
   }
   next();
